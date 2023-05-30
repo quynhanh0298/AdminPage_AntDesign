@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRoutes } from "react-router-dom";
+import Coupon from "./containers/Coupon";
+import Dashboard from "./containers/Dashboard";
+import Customer from "./containers/Customer";
+import Order from "./containers/Order";
+import Product from "./containers/Product";
+import User from "./containers/User";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let element = useRoutes([
+    { path: "/dashboard", element: <Dashboard /> },
+    { path: "/user", element: <User /> },
+    { path: "/customer", element: <Customer /> },
+    { path: "/product", element: <Product /> },
+    { path: "/order", element: <Order /> },
+    { path: "/coupon", element: <Coupon /> },
+  ]);
+
+  return element;
 }
 
 export default App;
