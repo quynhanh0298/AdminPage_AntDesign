@@ -1,55 +1,76 @@
 import {
-  LaptopOutlined,
-  NotificationOutlined,
+  FileOutlined,
+  PieChartOutlined,
   UserOutlined,
+  DesktopOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React from "react";
+import { Layout, Menu, theme } from "antd";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-const { Header } = Layout;
-
+const { Content, Footer, Sider } = Layout;
+function getItem(label, key, icon, path) {
+  return {
+    key,
+    icon,
+    label: <NavLink to={`/${path}`}>{label}</NavLink>,
+  };
+}
+const items = [
+  getItem("Dashboard", "1", <PieChartOutlined />, "dashboard"),
+  getItem("User", "2", <DesktopOutlined />, "user"),
+  getItem("Customer", "3", <UserOutlined />, "customer"),
+  getItem("Product", "4", <TeamOutlined />, "product"),
+  getItem("Order", "5", <FileOutlined />, "order"),
+  getItem("Coupon", "6", <FileOutlined />, "coupon"),
+];
 export const CommonLayout = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  // // const [current, setCurrent] = useState("mail");
+  // // const onClick = (e) => {
+  // //   console.log("click ", e);
+  // //   setCurrent(e.key);
+  // };
   return (
-    <Layout>
-      <Header
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
       >
-        <div className="demo-logo" />
+        <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["Dashboard"]}
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+          // onClick={onClick}
+          // selectedKeys={[current]}
+        />
+      </Sider>
+      <Layout>
+        <Content
+          style={{
+            margin: "16px 16px",
+          }}
         >
-          <Menu.Item key="1">
-            <span>Dashboard</span>
-            <NavLink to="/dashboard" />
-          </Menu.Item>
-          <Menu.Item key="2">
-            <span>User</span>
-            <NavLink to="/user" />
-          </Menu.Item>
-          <Menu.Item key="3">
-            <span>Customer</span>
-            <NavLink to="/customer" />
-          </Menu.Item>
-          <Menu.Item key="4">
-            <span>Product</span>
-            <NavLink to="/product" />
-          </Menu.Item>
-          <Menu.Item key="5">
-            <span>Order</span>
-            <NavLink to="/order" />
-          </Menu.Item>
-          <Menu.Item key="6">
-            <span>Coupon</span>
-            <NavLink to="/coupon" />
-          </Menu.Item>
-        </Menu>
-      </Header>
-      {children}
+          {children}
+        </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Ant Design ©2023 Created by Ant UED
+        </Footer>
+      </Layout>
     </Layout>
   );
 };
