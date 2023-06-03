@@ -12,7 +12,12 @@ const StyledDashboard = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 50px;
+  }
+  .bar-chart {
+    width: 100%;
+  }
+  .radio-bar-chart {
+    width: 100%;
   }
 `;
 
@@ -21,10 +26,10 @@ const Dashboard = () => {
     <StyledDashboard>
       <DashboardLineChart></DashboardLineChart>
       <div className="chart-bottom">
-        <div>
+        <div className="bar-chart">
           <DashboardBarChart></DashboardBarChart>
         </div>
-        <div>
+        <div className="radio-bar-chart">
           <DashboardRadioBarChart></DashboardRadioBarChart>
         </div>
       </div>
